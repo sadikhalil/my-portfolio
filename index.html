@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sadia Khalil — AI Developer</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --purple-50:  #f3f0ff;
+      --purple-100: #e5deff;
+      --purple-200: #c9bbff;
+      --purple-400: #886ddf;
+      --purple-600: #6d4fc2;
+      --purple-800: #3d2175;
+      --purple-900: #1e0d42;
+      --cream:      #faf9f7;
+      --ink:        #1a1025;
+      --muted:      #6b5f80;
+      --border:     rgba(93, 68, 162, 0.15);
+      --radius:     16px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--cream);
+      color: var(--ink);
+      font-size: 16px;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.1rem 2.5rem;
+      background: rgba(250,249,247,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.15rem;
+      color: var(--purple-800);
+      letter-spacing: -0.01em;
+    }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      font-size: 0.875rem;
+      font-weight: 400;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--purple-600); }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: flex; align-items: center; justify-content: center;
+      padding: 8rem 2rem 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute; inset: 0; z-index: 0;
+      background:
+        radial-gradient(ellipse 60% 50% at 80% 20%, rgba(155,126,248,0.18) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 40% at 10% 80%, rgba(109,79,194,0.12) 0%, transparent 70%);
+    }
+    .hero-dots {
+      position: absolute; inset: 0; z-index: 0;
+      background-image: radial-gradient(circle, rgba(109,79,194,0.12) 1px, transparent 1px);
+      background-size: 32px 32px;
+      mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 0%, transparent 100%);
+    }
+    .hero-inner {
+      position: relative; z-index: 1;
+      max-width: 720px; width: 100%;
+      text-align: center;
+    }
+    .hero-tag {
+      display: inline-block;
+      font-size: 0.75rem; font-weight: 500; letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--purple-600);
+      background: var(--purple-100);
+      padding: 0.35rem 1rem;
+      border-radius: 100px;
+      margin-bottom: 1.5rem;
+      animation: fadeUp 0.6s ease both;
+    }
+    .hero h1 {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(2.8rem, 7vw, 5rem);
+      line-height: 1.08;
+      letter-spacing: -0.03em;
+      color: var(--ink);
+      margin-bottom: 1.25rem;
+      animation: fadeUp 0.7s 0.1s ease both;
+    }
+    .hero h1 em {
+      font-style: italic;
+      color: var(--purple-600);
+    }
+    .hero-bio {
+      font-size: 1.05rem;
+      color: var(--muted);
+      max-width: 520px;
+      margin: 0 auto 2.5rem;
+      animation: fadeUp 0.7s 0.2s ease both;
+    }
+    .hero-cta {
+      display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;
+      animation: fadeUp 0.7s 0.3s ease both;
+    }
+    .btn {
+      display: inline-block;
+      padding: 0.75rem 1.75rem;
+      border-radius: 100px;
+      font-size: 0.9rem; font-weight: 500;
+      text-decoration: none;
+      transition: transform 0.15s, box-shadow 0.15s;
+      cursor: pointer;
+    }
+    .btn:active { transform: scale(0.97); }
+    .btn-primary {
+      background: var(--purple-600);
+      color: #fff;
+      box-shadow: 0 4px 20px rgba(109,79,194,0.35);
+    }
+    .btn-primary:hover { box-shadow: 0 6px 28px rgba(109,79,194,0.45); transform: translateY(-1px); }
+    .btn-outline {
+      border: 1.5px solid var(--purple-200);
+      color: var(--purple-600);
+      background: transparent;
+    }
+    .btn-outline:hover { background: var(--purple-50); }
+
+    /* ── SECTIONS ── */
+    section { padding: 5rem 2rem; }
+    .container { max-width: 780px; margin: 0 auto; }
+    .section-label {
+      font-size: 0.7rem; font-weight: 500; letter-spacing: 0.14em;
+      text-transform: uppercase; color: var(--purple-400);
+      margin-bottom: 0.6rem;
+    }
+    .section-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(1.8rem, 4vw, 2.5rem);
+      letter-spacing: -0.02em;
+      color: var(--ink);
+      margin-bottom: 2.5rem;
+    }
+
+    /* ── ABOUT ── */
+    #about { background: var(--purple-900); }
+    #about .section-label { color: var(--purple-200); }
+    #about .section-title { color: #fff; }
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+    }
+    .about-text { color: rgba(255,255,255,0.72); font-size: 1rem; line-height: 1.8; }
+    .about-text p + p { margin-top: 1rem; }
+    .about-highlights { display: flex; flex-direction: column; gap: 1rem; }
+    .highlight-item {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: var(--radius);
+      padding: 1rem 1.25rem;
+    }
+    .highlight-num {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.8rem;
+      color: var(--purple-200);
+      line-height: 1;
+      margin-bottom: 0.25rem;
+    }
+    .highlight-label { font-size: 0.82rem; color: rgba(255,255,255,0.5); }
+
+    /* ── SKILLS ── */
+    #skills { background: var(--cream); }
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 1rem;
+    }
+    .skill-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.25rem;
+      transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+    }
+    .skill-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 24px rgba(109,79,194,0.1);
+      border-color: var(--purple-200);
+    }
+    .skill-icon {
+      width: 36px; height: 36px;
+      border-radius: 10px;
+      background: var(--purple-100);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px;
+      margin-bottom: 0.75rem;
+    }
+    .skill-name { font-size: 0.9rem; font-weight: 500; color: var(--ink); margin-bottom: 0.2rem; }
+    .skill-desc { font-size: 0.78rem; color: var(--muted); }
+
+    /* ── PROJECTS ── */
+    #projects { background: var(--purple-50); }
+    .projects-grid { display: grid; gap: 1.5rem; }
+    .project-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 2rem;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 1rem;
+      align-items: start;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .project-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 32px rgba(109,79,194,0.12);
+    }
+    .project-badge {
+      font-size: 0.7rem; font-weight: 500; letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 0.3rem 0.8rem;
+      border-radius: 100px;
+      white-space: nowrap;
+    }
+    .badge-ai { background: var(--purple-100); color: var(--purple-600); }
+    .badge-docs { background: #e0f2fe; color: #0369a1; }
+    .project-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.35rem;
+      color: var(--ink);
+      margin-bottom: 0.6rem;
+    }
+    .project-desc { font-size: 0.9rem; color: var(--muted); margin-bottom: 1.25rem; line-height: 1.7; }
+    .project-tags { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+    .tag {
+      font-size: 0.75rem; padding: 0.25rem 0.75rem;
+      border-radius: 100px;
+      background: var(--purple-50);
+      color: var(--purple-600);
+      border: 1px solid var(--purple-100);
+    }
+    .project-links { display: flex; gap: 0.75rem; margin-top: 1.25rem; }
+    .project-link {
+      font-size: 0.82rem; font-weight: 500;
+      color: var(--purple-600);
+      text-decoration: none;
+      display: flex; align-items: center; gap: 0.3rem;
+      transition: color 0.2s;
+    }
+    .project-link:hover { color: var(--purple-800); }
+
+    /* ── CONTACT ── */
+    #contact { background: var(--cream); }
+    .contact-box {
+      background: var(--purple-900);
+      border-radius: 24px;
+      padding: 3.5rem;
+      text-align: center;
+    }
+    .contact-box .section-label { color: var(--purple-200); }
+    .contact-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(1.8rem, 4vw, 2.6rem);
+      color: #fff;
+      margin: 0.5rem 0 1rem;
+    }
+    .contact-subtitle { color: rgba(255,255,255,0.6); font-size: 0.95rem; margin-bottom: 2rem; }
+    .contact-links {
+      display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;
+    }
+    .contact-link {
+      display: flex; align-items: center; gap: 0.5rem;
+      padding: 0.7rem 1.4rem;
+      border-radius: 100px;
+      border: 1px solid rgba(255,255,255,0.15);
+      color: rgba(255,255,255,0.85);
+      text-decoration: none;
+      font-size: 0.875rem;
+      transition: background 0.2s, border-color 0.2s;
+    }
+    .contact-link:hover {
+      background: rgba(255,255,255,0.08);
+      border-color: rgba(255,255,255,0.3);
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      text-align: center;
+      padding: 2rem;
+      font-size: 0.8rem;
+      color: var(--muted);
+      border-top: 1px solid var(--border);
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 640px) {
+      nav { padding: 1rem 1.25rem; }
+      .nav-links { gap: 1.2rem; }
+      .about-grid { grid-template-columns: 1fr; }
+      .project-card { grid-template-columns: 1fr; }
+      .contact-box { padding: 2rem 1.25rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <span class="nav-logo">Sadia Khalil</span>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-dots"></div>
+    <div class="hero-inner">
+      <h1>Hi, I'm Sadia —<br><em>I build with AI.</em></h1>
+      <p class="hero-bio">
+        A web developer crafting intelligent applications using TypeScript, Next.js, and Python. I love turning AI capabilities into real, useful products.
+      </p>
+      <div class="hero-cta">
+        <a href="#projects" class="btn btn-primary">View my projects</a>
+        <a href="#contact" class="btn btn-outline">Get in touch</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="container">
+      <p class="section-label">About me</p>
+      <h2 class="section-title">Developer. Builder. AI enthusiast.</h2>
+      <div class="about-grid">
+        <div class="about-text">
+          <p>
+            I'm Sadia Khalil, a web developer with a passion for building AI-powered applications. I work across the full stack — from crafting clean UIs with TypeScript and Next.js to building Python backends that integrate AI models.
+          </p>
+          <p>
+            I'm currently seeking an internship where I can contribute to real products, grow my skills, and work alongside experienced developers. I believe AI is reshaping how software is built — and I want to be part of that.
+          </p>
+        </div>
+        <div class="about-highlights">
+          <div class="highlight-item">
+            <div class="highlight-num">2</div>
+            <div class="highlight-label">Shipped projects</div>
+          </div>
+          <div class="highlight-item">
+            <div class="highlight-num">5+</div>
+            <div class="highlight-label">Technologies in my stack</div>
+          </div>
+          <div class="highlight-item">
+            <div class="highlight-num">AI</div>
+            <div class="highlight-label">Integrated into real apps</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <div class="container">
+      <p class="section-label">What I work with</p>
+      <h2 class="section-title">My skills</h2>
+      <div class="skills-grid">
+        <div class="skill-card">
+          <div class="skill-icon">⚡</div>
+          <div class="skill-name">TypeScript</div>
+          <div class="skill-desc">Typed, scalable frontend and backend code</div>
+        </div>
+        <div class="skill-card">
+          <div class="skill-icon">▲</div>
+          <div class="skill-name">Next.js</div>
+          <div class="skill-desc">Full-stack React apps with SSR & routing</div>
+        </div>
+        <div class="skill-card">
+          <div class="skill-icon">🐍</div>
+          <div class="skill-name">Python</div>
+          <div class="skill-desc">Backend logic and AI/ML integrations</div>
+        </div>
+        <div class="skill-card">
+          <div class="skill-icon">🤖</div>
+          <div class="skill-name">AI integration</div>
+          <div class="skill-desc">Building apps powered by AI APIs & chatbots by using claude and gemini</div>
+        </div>
+        <div class="skill-card">
+          <div class="skill-icon">🎨</div>
+          <div class="skill-name">HTML & CSS</div>
+          <div class="skill-desc">Semantic markup and modern styling</div>
+        </div>
+        <div class="skill-card">
+          <div class="skill-icon">📄</div>
+          <div class="skill-name">Docusaurus</div>
+          <div class="skill-desc">Documentation sites and developer portals</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <div class="container">
+      <p class="section-label">What I've built</p>
+      <h2 class="section-title">Projects</h2>
+      <div class="projects-grid">
+
+        <div class="project-card">
+          <div>
+            <p class="project-title">AI Todo App</p>
+            <p class="project-desc">
+              A task management application with a built-in AI chatbot that helps users prioritize tasks, plan their day, and stay organized — all through a natural conversation interface.
+            </p>
+            <div class="project-tags">
+              <span class="tag">Claude</span>
+              <span class="tag">AI chatbot</span>
+              <span class="tag">Python</span>
+            </div>
+            <div class="project-links">
+              <a href="https://github.com/sadikhalil/todo-app-phase4.git" class="project-link">
+                ↗ GitHub
+              </a>
+              <a href="https://todo-app-chatbot-nine.vercel.app/" class="project-link">
+                ↗ Live demo
+              </a>
+            </div>
+          </div>
+          <span class="project-badge badge-ai">AI powered</span>
+        </div>
+
+        <div class="project-card">
+          <div>
+            <p class="project-title">Physical AI and Humanoid Robotics Book</p>
+            <p class="project-desc">
+              A structured book on <b>Physical ai and humanoid robotics</b>  built with Docusaurus, featuring clean navigation, organized content sections, and a developer-friendly reading experience.
+            </p>
+            <div class="project-tags">
+              <span class="tag">Docusaurus</span>
+              <span class="tag">RAG Chatbot</span>
+              <span class="tag">QDRANT</span>
+              <span class="tag">claude</span>
+              <span class = "tag"> Specifyplus</span>
+            </div>
+            <div class="project-links">
+              <a href="https://github.com/sadikhalil/physical-ai-and-humanoid-robotics-book-.git" class="project-link">
+                ↗ GitHub
+              </a>
+              <a href="https://physical-ai-and-humanoid-robotics-b-green.vercel.app/" class="project-link">
+                ↗ Live demo
+              </a>
+            </div>
+          </div>
+          <span class="project-badge badge-docs">Docs</span>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="container">
+      <div class="contact-box">
+        <p class="section-label">Get in touch</p>
+        <h2 class="contact-title">Let's work together</h2>
+        <p class="contact-subtitle">I'm actively looking for internship opportunities. Feel free to reach out!</p>
+        <div class="contact-links">
+          <a href="mailto:sadiakhalil0223@gmail.com" class="contact-link">✉ Email me</a>
+          <a href="https://www.linkedin.com/in/sadia-khalil-71341a2bb/" target="_blank" class="contact-link">in LinkedIn</a>
+          <a href="https://github.com/sadikhalil" target="_blank" class="contact-link">⌥ GitHub</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>Designed & built by Sadia Khalil with claude ai  · 2025</p>
+  </footer>
+
+</body>
+</html>
